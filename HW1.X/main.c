@@ -26,12 +26,14 @@ void delay(void);
 
 void main() {
     SYSTEMConfigPerformance(48000000);
-  TRISA = 0xFFCF;   
+  TRISA = 0xFFCF; 
+  TRISB = 0xFFFF;
     while(1) {
        
         PORTAINV = 0x0010;
         //PORTAbits.RA4 = 1;
         delay();
+        while(!PORTBbits.RB4){}
 }
 }
 
