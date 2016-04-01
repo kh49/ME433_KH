@@ -21,6 +21,7 @@
 
 #define SYS_FREQ (48000000)
 
+
 void delay(void);
 
 void main() {
@@ -35,9 +36,10 @@ void main() {
 }
 
 void delay(void) {
-    int j;
-    for (j=0; j<48000; j++) {
-        
-    }
+    int delaytime = 24000; //in hz
+    int starttime;
+    starttime = ReadCoreTimer();
+    
+    while ((int)ReadCoreTimer()-starttime < delaytime){}
 }
 
