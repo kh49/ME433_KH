@@ -36,10 +36,13 @@ void main() {
 }
 
 void delay(void) {
-    int delaytime = 24000; //in hz
+    int delaytime = 12000; //in hz, core timer freq is half sysfreq
     int starttime;
     starttime = ReadCoreTimer();
     
     while ((int)ReadCoreTimer()-starttime < delaytime){}
+    
+    // resets the core timer count
+    //WriteCoreTimer( 0);
 }
 
