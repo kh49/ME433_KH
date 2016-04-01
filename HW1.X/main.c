@@ -30,7 +30,7 @@ void main() {
 
 void delay(void) {
     int j;
-    for (j=0; j<4800; j++) {
+    for (j=0; j<4000000; j++) {
         
     }
 }
