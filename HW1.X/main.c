@@ -1,4 +1,4 @@
-#include 
+#include <xc.h>
 
 #pragma config FNOSC = FRCPLL
 #pragma config FSOSCEN = OFF
@@ -10,3 +10,7 @@
 #pragma config FPLLODIV = DIV_2
 #pragma config UPLLIDIV = DIV_2
 #pragma config UPLLEN = ON
+
+void main() {
+    
+}
