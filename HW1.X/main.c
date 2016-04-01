@@ -16,14 +16,22 @@
 #pragma config FPLLODIV = DIV_2
 #pragma config UPLLIDIV = DIV_2
 #pragma config UPLLEN = ON
+void delay(void);
 
 void main() {
-            
+    TRISA = 0xFFCF;   
     while(1) {
-
-        TRISA = 0xFFCF;
-        PORTAbits.RA4 = 1;
-        
+       
+        PORTAINV = 0x0010;
+        //PORTAbits.RA4 = 1;
+        delay();
 }
+}
+
+void delay(void) {
+    int j;
+    for (j=0; j<4800; j++) {
+        
+    }
 }
 
