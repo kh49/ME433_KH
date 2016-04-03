@@ -1,5 +1,6 @@
 #include <xc.h>
 #include <plib.h>
+
 // DEVCFG0
 #pragma config DEBUG = OFF
 #pragma config JTAGEN = OFF             // JTAG Enable (JTAG Disabled)
@@ -23,7 +24,7 @@
 #pragma config UPLLIDIV = DIV_2
 #pragma config UPLLEN = ON
 // DEVCFG3
-#pragma config USERID = EFFFFFFF
+#pragma config USERID = 1
 #pragma config PMDL1WAY = OFF
 #pragma config IOL1WAY = OFF
 #pragma config FUSBIDIO = ON
