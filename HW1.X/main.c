@@ -1,5 +1,6 @@
 #include <xc.h>
 #include <plib.h>
+#include <sys/attribs.h>
 
 // DEVCFG0
 #pragma config DEBUG = OFF
@@ -17,6 +18,7 @@
 #pragma config FPBDIV = DIV_1
 #pragma config FCKSM = CSDCMD
 //should add WDT stuff
+
 // DEVCFG2
 #pragma config FPLLIDIV = DIV_2
 #pragma config FPLLMUL = MUL_24
@@ -37,10 +39,26 @@
 void delay(void);
 
 void main() {
+   __builtin_disable_interrupts();
+
+    // set the CP0 CONFIG register to indicate that kseg0 is cacheable (0x3)
+    __builtin_mtc0(_CP0_CONFIG, _CP0_CONFIG_SELECT, 0xa4210583);
+
+    // 0 data RAM access wait states
+    BMXCONbits.BMXWSDRM = 0x0;
+
+    // enable multi vector interrupts
+    INTCONbits.MVEC = 0x1;
+
+    // disable JTAG to get pins back
+    DDPCONbits.JTAGEN = 0;
+    
+    // do your TRIS and LAT commands here
+    TRISA = 0xFFCF; 
+    TRISB = 0xFFFF;
+__builtin_enable_interrupts();
+   // SYSTEMConfigPerformance(48000000);
   
-    SYSTEMConfigPerformance(48000000);
-  TRISA = 0xFFCF; 
-  TRISB = 0xFFFF;
     while(1) {
        
         PORTAINV = 0x0010;
@@ -53,9 +71,9 @@ void main() {
 void delay(void) {
     int delaytime = 12000; //in hz, core timer freq is half sysfreq
     int starttime;
-    starttime = ReadCoreTimer();
+    starttime = _CP0_GET_COUNT();
     
-    while ((int)ReadCoreTimer()-starttime < delaytime){}
+    while ((int)_CP0_GET_COUNT()-starttime < delaytime){}
     
     // resets the core timer count
     //WriteCoreTimer( 0);
