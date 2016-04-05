@@ -17,7 +17,10 @@
 #pragma config OSCIOFNC = OFF
 #pragma config FPBDIV = DIV_1
 #pragma config FCKSM = CSDCMD
-//should add WDT stuff
+#pragma config WDTPS = PS1048576
+#pragma config WINDIS = OFF
+#pragma config FWDTEN = OFF
+#pragma config FWDTWINSZ = WINSZ_25
 
 // DEVCFG2
 #pragma config FPLLIDIV = DIV_2
