@@ -711,9 +711,9 @@ design rules under a new name.</description>
 <element name="C3" library="components" package="C050-030X075" value=".1uf" x="25.4" y="8.89"/>
 <element name="C4" library="components" package="C050-030X075" value=".1uf" x="8.89" y="35.56" rot="R90"/>
 <element name="C5" library="components" package="C050-030X075" value=".1uf" x="35.56" y="35.56" rot="R90"/>
-<element name="LED1" library="components" package="LED3MM" value="TLLG4400" x="3.81" y="3.81">
-<attribute name="OC_FARNELL" value="1612435" x="3.81" y="3.81" size="1.778" layer="27" display="off"/>
-<attribute name="MF" value="VISHAY SEMICONDUCTOR" x="3.81" y="3.81" size="1.778" layer="27" display="off"/>
+<element name="LED1" library="components" package="LED3MM" value="TLLG4400" x="3.81" y="3.81" rot="R180">
+<attribute name="OC_FARNELL" value="1612435" x="3.81" y="3.81" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MF" value="VISHAY SEMICONDUCTOR" x="3.81" y="3.81" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="BUTTON" library="components" package="0207/10" value="10k" x="39.37" y="11.43"/>
 <element name="MCLR" library="components" package="0207/10" value="10k" x="13.97" y="11.43" rot="R180"/>
@@ -877,7 +877,7 @@ design rules under a new name.</description>
 <contactref element="LED1" pad="A"/>
 <contactref element="U$5" pad="12"/>
 <wire x1="24.13" y1="2.54" x2="31.75" y2="20.32" width="0" layer="19" extent="1-1"/>
-<wire x1="2.54" y1="3.81" x2="24.13" y2="2.54" width="0" layer="19" extent="1-1"/>
+<wire x1="5.08" y1="3.81" x2="24.13" y2="2.54" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="USBID">
 <contactref element="U$4" pad="ID"/>

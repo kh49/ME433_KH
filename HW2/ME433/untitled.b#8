@@ -722,8 +722,8 @@ design rules under a new name.</description>
 <element name="U$3" library="components" package="CRYSTAL_8MHZ" value="CRYSTAL_8MHZ" x="25.4" y="15.24"/>
 <element name="U$4" library="components" package="USB-MB-H" value="MICROUSB_BREAKOUTUSBMICROMBH" x="45.72" y="24.13" rot="R180"/>
 <element name="U$5" library="components" package="DIL28-3" value="PIC32MX250F128B" x="20.32" y="24.13"/>
-<element name="INPUTBUTTON" library="components" package="PUSHBUTTON" value="PUSHBUTTON" x="3.81" y="11.43" rot="R180"/>
-<element name="RESETBUTTON" library="components" package="PUSHBUTTON" value="PUSHBUTTON" x="45.72" y="2.54"/>
+<element name="INPUTBUTTON" library="components" package="PUSHBUTTON" value="PUSHBUTTON" x="3.81" y="11.43"/>
+<element name="RESETBUTTON" library="components" package="PUSHBUTTON" value="PUSHBUTTON" x="45.72" y="3.81" rot="R180"/>
 <element name="U$8" library="components" package="1X06_LOCK" value="PICKITROW" x="2.54" y="46.99" rot="R270"/>
 <element name="SW1" library="components" package="SW3-2.5-11.6X4.0X5.4+2.0MM" value="DIP-SLIDE-SWITCH(3P-11.6X4.0X5.4+2.0MM)-EG1218" x="46.99" y="35.56" rot="R90"/>
 <element name="HEADER1" library="components" package="1X08_ROUND" value="1" x="11.43" y="2.54">
@@ -822,9 +822,9 @@ design rules under a new name.</description>
 <contactref element="U$5" pad="1"/>
 <contactref element="MCLR" pad="2"/>
 <contactref element="RESETBUTTON" pad="P$2"/>
-<wire x1="8.89" y1="11.43" x2="48.514" y2="2.54" width="0" layer="19" extent="1-1"/>
-<wire x1="3.81" y1="20.32" x2="8.89" y2="11.43" width="0" layer="19" extent="1-1"/>
-<wire x1="2.54" y1="46.99" x2="3.81" y2="20.32" width="0" layer="19" extent="1-1"/>
+<wire x1="3.81" y1="20.32" x2="2.54" y2="46.99" width="0" layer="19" extent="1-1"/>
+<wire x1="8.89" y1="11.43" x2="3.81" y2="20.32" width="0" layer="19" extent="1-1"/>
+<wire x1="42.926" y1="3.81" x2="8.89" y2="11.43" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PICKITD">
 <contactref element="U$8" pad="4"/>
@@ -870,7 +870,7 @@ design rules under a new name.</description>
 <contactref element="U$5" pad="11"/>
 <wire x1="29.21" y1="20.32" x2="44.45" y2="11.43" width="0" layer="19" extent="1-1"/>
 <wire x1="21.59" y1="2.54" x2="29.21" y2="20.32" width="0" layer="19" extent="1-1"/>
-<wire x1="1.016" y1="11.43" x2="21.59" y2="2.54" width="0" layer="19" extent="1-1"/>
+<wire x1="6.604" y1="11.43" x2="21.59" y2="2.54" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="A4">
 <contactref element="HEADER1" pad="6"/>
