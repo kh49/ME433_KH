@@ -6338,8 +6338,8 @@ Standard 8-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <part name="GND1" library="components" deviceset="GND" device=""/>
 <part name="U$8" library="components" deviceset="PICKITROW" device=""/>
 <part name="SW1" library="components" deviceset="DIP-SLIDE-SWITCH(3P-11.6X4.0X5.4+2.0MM)" device="-EG1218"/>
-<part name="HEADER1" library="components" deviceset="M08" device=""/>
-<part name="HEADER2" library="components" deviceset="M08" device=""/>
+<part name="HEADER1" library="components" deviceset="M08" device="" value="1"/>
+<part name="HEADER2" library="components" deviceset="M08" device="" value="2"/>
 </parts>
 <sheets>
 <sheet>

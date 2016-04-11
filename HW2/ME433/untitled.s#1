@@ -4102,6 +4102,31 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <rectangle x1="-3.75" y1="-3.1" x2="-1.425" y2="3.1" layer="43"/>
 <rectangle x1="-1.425" y1="-2.325" x2="-0.65" y2="2.325" layer="43"/>
 </package>
+<package name="C025-040X050POL">
+<description>&lt;b&gt;CAPACITOR&lt;/b&gt;&lt;p&gt;
+grid 2.5 mm, outline 4 x 5 mm</description>
+<wire x1="-2.159" y1="1.905" x2="2.159" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="2.159" y1="-1.905" x2="-2.159" y2="-1.905" width="0.1524" layer="21"/>
+<wire x1="2.413" y1="1.651" x2="2.413" y2="-1.651" width="0.1524" layer="21"/>
+<wire x1="-2.413" y1="1.651" x2="-2.413" y2="-1.651" width="0.1524" layer="21"/>
+<wire x1="2.159" y1="1.905" x2="2.413" y2="1.651" width="0.1524" layer="21" curve="-90"/>
+<wire x1="-2.413" y1="1.651" x2="-2.159" y2="1.905" width="0.1524" layer="21" curve="-90"/>
+<wire x1="2.159" y1="-1.905" x2="2.413" y2="-1.651" width="0.1524" layer="21" curve="90"/>
+<wire x1="-2.413" y1="-1.651" x2="-2.159" y2="-1.905" width="0.1524" layer="21" curve="90"/>
+<wire x1="0.762" y1="0" x2="0.381" y2="0" width="0.1524" layer="51"/>
+<wire x1="0.381" y1="0" x2="0.254" y2="0" width="0.1524" layer="21"/>
+<wire x1="0.254" y1="0" x2="0.254" y2="0.762" width="0.254" layer="21"/>
+<wire x1="0.254" y1="0" x2="0.254" y2="-0.762" width="0.254" layer="21"/>
+<wire x1="-0.254" y1="0.762" x2="-0.254" y2="0" width="0.254" layer="21"/>
+<wire x1="-0.254" y1="0" x2="-0.254" y2="-0.762" width="0.254" layer="21"/>
+<wire x1="-0.254" y1="0" x2="-0.381" y2="0" width="0.1524" layer="21"/>
+<wire x1="-0.381" y1="0" x2="-0.762" y2="0" width="0.1524" layer="51"/>
+<pad name="+" x="-1.27" y="0" drill="0.8128" shape="octagon"/>
+<pad name="-" x="1.27" y="0" drill="0.8128" shape="octagon"/>
+<text x="-2.286" y="2.159" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.286" y="-3.429" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<text x="-2.54" y="0.635" size="1.27" layer="21">+</text>
+</package>
 </packages>
 <symbols>
 <symbol name="VOLTAGE_REGULATOR_MCP1702">
@@ -5913,6 +5938,15 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391098.pdf"&gt; Data sheet
 <technology name=""/>
 </technologies>
 </device>
+<device name="SHORT" package="C025-040X050POL">
+<connects>
+<connect gate="G$1" pin="+" pad="+"/>
+<connect gate="G$1" pin="-" pad="-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 <deviceset name="CRYSTAL_8MHZ">
@@ -6367,7 +6401,7 @@ Standard 8-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <part name="C3" library="components" deviceset="C-US" device="050-030X075" value=".1uf"/>
 <part name="C4" library="components" deviceset="C-US" device="025-030X050" value=".1uf"/>
 <part name="C5" library="components" deviceset="C-US" device="025-030X050" value=".1uf"/>
-<part name="U$2" library="components" deviceset="CAP_TANT_10UF" device=""/>
+<part name="U$2" library="components" deviceset="CAP_TANT_10UF" device="SHORT" value="CAP_TANT_10UFSHORT"/>
 <part name="U$3" library="components" deviceset="CRYSTAL_8MHZ" device=""/>
 <part name="U$4" library="components" deviceset="MICROUSB_BREAKOUT" device="USBMICROMBH" value="MICROUSB_BREAKOUTUSBMICROMBH"/>
 <part name="U$5" library="components" deviceset="PIC32MX250F128B" device=""/>

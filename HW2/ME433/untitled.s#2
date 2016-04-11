@@ -6362,11 +6362,11 @@ Standard 8-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <part name="LED1" library="components" deviceset="TLLG4400" device=""/>
 <part name="BUTTON" library="components" deviceset="R-US_" device="0207/10" value="10k"/>
 <part name="MCLR" library="components" deviceset="R-US_" device="0207/10" value="10k"/>
-<part name="C1" library="components" deviceset="C-US" device="050-030X075" value="1uf"/>
-<part name="C2" library="components" deviceset="C-US" device="050-030X075" value="1uf"/>
+<part name="C1" library="components" deviceset="C-US" device="025-030X050" value="1uf"/>
+<part name="C2" library="components" deviceset="C-US" device="025-030X050" value="1uf"/>
 <part name="C3" library="components" deviceset="C-US" device="050-030X075" value=".1uf"/>
-<part name="C4" library="components" deviceset="C-US" device="050-030X075" value=".1uf"/>
-<part name="C5" library="components" deviceset="C-US" device="050-030X075" value=".1uf"/>
+<part name="C4" library="components" deviceset="C-US" device="025-030X050" value=".1uf"/>
+<part name="C5" library="components" deviceset="C-US" device="025-030X050" value=".1uf"/>
 <part name="U$2" library="components" deviceset="CAP_TANT_10UF" device=""/>
 <part name="U$3" library="components" deviceset="CRYSTAL_8MHZ" device=""/>
 <part name="U$4" library="components" deviceset="MICROUSB_BREAKOUT" device="USBMICROMBH" value="MICROUSB_BREAKOUTUSBMICROMBH"/>

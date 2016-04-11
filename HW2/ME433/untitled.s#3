@@ -4074,6 +4074,34 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <rectangle x1="14.9225" y1="-0.1905" x2="15.5575" y2="0.1905" layer="51"/>
 <rectangle x1="17.4625" y1="-0.1905" x2="18.0975" y2="0.1905" layer="51"/>
 </package>
+<package name="USB-MB-H">
+<description>&lt;b&gt;USB Series Mini-B Hole Mounted&lt;/b&gt;</description>
+<wire x1="-3.75" y1="3.9" x2="-3.75" y2="-3.9" width="0.127" layer="22"/>
+<wire x1="5.25" y1="3.9" x2="5.25" y2="-3.9" width="0.127" layer="22"/>
+<wire x1="-3.75" y1="3.9" x2="5.25" y2="3.9" width="0.127" layer="22"/>
+<wire x1="-3.75" y1="-3.9" x2="5.25" y2="-3.9" width="0.127" layer="22"/>
+<wire x1="0.75" y1="3.5" x2="-3.25" y2="3" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="3" x2="-3.25" y2="2" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="2" x2="0.75" y2="1.5" width="0.127" layer="22"/>
+<wire x1="1.25" y1="-3.5" x2="-3.25" y2="-3" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="-3" x2="-3.25" y2="-2" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="-2" x2="1.25" y2="-1.5" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="1.25" x2="1.75" y2="0.75" width="0.127" layer="22"/>
+<wire x1="1.75" y1="0.75" x2="1.75" y2="-0.75" width="0.127" layer="22"/>
+<wire x1="1.75" y1="-0.75" x2="-3.25" y2="-1.25" width="0.127" layer="22"/>
+<pad name="VBUS" x="5.1" y="1.6" drill="0.8"/>
+<pad name="D+" x="5.1" y="0" drill="0.8"/>
+<pad name="GND" x="5.1" y="-1.6" drill="0.8"/>
+<pad name="D-" x="3.9" y="0.8" drill="0.8"/>
+<pad name="ID" x="3.9" y="-0.8" drill="0.8"/>
+<pad name="P$6" x="0" y="-3.65" drill="1.9"/>
+<pad name="P$7" x="0" y="3.65" drill="1.9"/>
+<text x="7.25" y="1.5" size="1.27" layer="25" rot="R90">&gt;NAME</text>
+<rectangle x1="3.25" y1="3" x2="5.75" y2="4.4" layer="43"/>
+<rectangle x1="3.25" y1="-4.4" x2="5.75" y2="-3" layer="43"/>
+<rectangle x1="-3.75" y1="-3.1" x2="-1.425" y2="3.1" layer="43"/>
+<rectangle x1="-1.425" y1="-2.325" x2="-0.65" y2="2.325" layer="43"/>
+</package>
 </packages>
 <symbols>
 <symbol name="VOLTAGE_REGULATOR_MCP1702">
@@ -4226,7 +4254,7 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <pin name="RB4" x="-5.08" y="10.16" length="middle"/>
 <pin name="RA4" x="-5.08" y="7.62" length="middle"/>
 <pin name="VDD" x="-5.08" y="5.08" length="middle"/>
-<pin name="TMS" x="-5.08" y="2.54" length="middle"/>
+<pin name="USBID" x="-5.08" y="2.54" length="middle"/>
 <wire x1="0" y1="38.1" x2="0" y2="0" width="0.254" layer="94"/>
 <wire x1="0" y1="0" x2="17.78" y2="0" width="0.254" layer="94"/>
 <wire x1="17.78" y1="0" x2="17.78" y2="38.1" width="0.254" layer="94"/>
@@ -5921,6 +5949,18 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391098.pdf"&gt; Data sheet
 <technology name=""/>
 </technologies>
 </device>
+<device name="USBMICROMBH" package="USB-MB-H">
+<connects>
+<connect gate="G$1" pin="D+" pad="D+"/>
+<connect gate="G$1" pin="D-" pad="D-"/>
+<connect gate="G$1" pin="GND" pad="GND"/>
+<connect gate="G$1" pin="ID" pad="ID"/>
+<connect gate="G$1" pin="VBUS" pad="VBUS"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 <deviceset name="PIC32MX250F128B">
@@ -5951,7 +5991,7 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391098.pdf"&gt; Data sheet
 <connect gate="G$1" pin="TCK" pad="17"/>
 <connect gate="G$1" pin="TDI" pad="16"/>
 <connect gate="G$1" pin="TDO" pad="18"/>
-<connect gate="G$1" pin="TMS" pad="14"/>
+<connect gate="G$1" pin="USBID" pad="14"/>
 <connect gate="G$1" pin="VBUS" pad="15"/>
 <connect gate="G$1" pin="VCAP" pad="20"/>
 <connect gate="G$1" pin="VDD" pad="13"/>
@@ -6329,7 +6369,7 @@ Standard 8-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <part name="C5" library="components" deviceset="C-US" device="050-030X075" value=".1uf"/>
 <part name="U$2" library="components" deviceset="CAP_TANT_10UF" device=""/>
 <part name="U$3" library="components" deviceset="CRYSTAL_8MHZ" device=""/>
-<part name="U$4" library="components" deviceset="MICROUSB_BREAKOUT" device=""/>
+<part name="U$4" library="components" deviceset="MICROUSB_BREAKOUT" device="USBMICROMBH" value="MICROUSB_BREAKOUTUSBMICROMBH"/>
 <part name="U$5" library="components" deviceset="PIC32MX250F128B" device=""/>
 <part name="INPUTBUTTON" library="components" deviceset="PUSHBUTTON" device=""/>
 <part name="RESETBUTTON" library="components" deviceset="PUSHBUTTON" device=""/>
@@ -6699,7 +6739,7 @@ Standard 8-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <wire x1="60.96" y1="7.62" x2="91.44" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="7.62" x2="91.44" y2="-22.86" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="-22.86" x2="43.18" y2="-22.86" width="0.1524" layer="91"/>
-<pinref part="U$5" gate="G$1" pin="TMS"/>
+<pinref part="U$5" gate="G$1" pin="USBID"/>
 <wire x1="45.72" y1="25.4" x2="43.18" y2="25.4" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="-22.86" x2="43.18" y2="25.4" width="0.1524" layer="91"/>
 </segment>
