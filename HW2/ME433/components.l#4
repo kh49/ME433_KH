@@ -14848,9 +14848,9 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <wire x1="3.81" y1="-1.27" x2="3.81" y2="1.27" width="0.127" layer="21"/>
 <wire x1="3.81" y1="1.27" x2="-3.81" y2="1.27" width="0.127" layer="21"/>
 <wire x1="-3.81" y1="1.27" x2="-3.81" y2="-1.27" width="0.127" layer="21"/>
-<pad name="OSC1" x="-2.54" y="0" drill="0.8"/>
+<pad name="OSC1" x="-2.5" y="0" drill="0.8"/>
 <pad name="GND" x="0" y="0" drill="0.8"/>
-<pad name="OSC2" x="2.54" y="0" drill="0.8"/>
+<pad name="OSC2" x="2.5" y="0" drill="0.8"/>
 <text x="-3.81" y="1.27" size="1.27" layer="21">&gt;NAME</text>
 <text x="-3.81" y="-2.54" size="1.27" layer="21">&gt;VALUE</text>
 </package>
@@ -14860,8 +14860,8 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <wire x1="2.794" y1="2.794" x2="-2.794" y2="2.794" width="0.127" layer="21"/>
 <wire x1="-2.794" y1="2.794" x2="-2.794" y2="-2.794" width="0.127" layer="21"/>
 <circle x="0" y="0" radius="1.79605" width="0.127" layer="21"/>
-<pad name="P$1" x="-2.794" y="0" drill="0.8"/>
-<pad name="P$2" x="2.794" y="0" drill="0.8"/>
+<pad name="P$1" x="-2.5" y="0" drill="0.8"/>
+<pad name="P$2" x="2.5" y="0" drill="0.8"/>
 <text x="-2.54" y="3.302" size="1.27" layer="21">&gt;NAME</text>
 <text x="-2.794" y="-4.318" size="1.27" layer="21">&gt;VALUE</text>
 </package>
@@ -14928,6 +14928,31 @@ grid 5 mm, outline 3.5 x 7.5 mm</description>
 <rectangle x1="3.25" y1="-4.4" x2="5.75" y2="-3" layer="43"/>
 <rectangle x1="-3.75" y1="-3.1" x2="-1.425" y2="3.1" layer="43"/>
 <rectangle x1="-1.425" y1="-2.325" x2="-0.65" y2="2.325" layer="43"/>
+</package>
+<package name="C025-040X050POL">
+<description>&lt;b&gt;CAPACITOR&lt;/b&gt;&lt;p&gt;
+grid 2.5 mm, outline 4 x 5 mm</description>
+<wire x1="-2.159" y1="1.905" x2="2.159" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="2.159" y1="-1.905" x2="-2.159" y2="-1.905" width="0.1524" layer="21"/>
+<wire x1="2.413" y1="1.651" x2="2.413" y2="-1.651" width="0.1524" layer="21"/>
+<wire x1="-2.413" y1="1.651" x2="-2.413" y2="-1.651" width="0.1524" layer="21"/>
+<wire x1="2.159" y1="1.905" x2="2.413" y2="1.651" width="0.1524" layer="21" curve="-90"/>
+<wire x1="-2.413" y1="1.651" x2="-2.159" y2="1.905" width="0.1524" layer="21" curve="-90"/>
+<wire x1="2.159" y1="-1.905" x2="2.413" y2="-1.651" width="0.1524" layer="21" curve="90"/>
+<wire x1="-2.413" y1="-1.651" x2="-2.159" y2="-1.905" width="0.1524" layer="21" curve="90"/>
+<wire x1="0.762" y1="0" x2="0.381" y2="0" width="0.1524" layer="51"/>
+<wire x1="0.381" y1="0" x2="0.254" y2="0" width="0.1524" layer="21"/>
+<wire x1="0.254" y1="0" x2="0.254" y2="0.762" width="0.254" layer="21"/>
+<wire x1="0.254" y1="0" x2="0.254" y2="-0.762" width="0.254" layer="21"/>
+<wire x1="-0.254" y1="0.762" x2="-0.254" y2="0" width="0.254" layer="21"/>
+<wire x1="-0.254" y1="0" x2="-0.254" y2="-0.762" width="0.254" layer="21"/>
+<wire x1="-0.254" y1="0" x2="-0.381" y2="0" width="0.1524" layer="21"/>
+<wire x1="-0.381" y1="0" x2="-0.762" y2="0" width="0.1524" layer="51"/>
+<pad name="+" x="-1.27" y="0" drill="0.8128" shape="octagon"/>
+<pad name="-" x="1.27" y="0" drill="0.8128" shape="octagon"/>
+<text x="-2.286" y="2.159" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.286" y="-3.429" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<text x="-2.54" y="0.635" size="1.27" layer="21">+</text>
 </package>
 </packages>
 <symbols>
@@ -21845,6 +21870,16 @@ Standard 15-pin 0.1" header. Use with straight break away headers (SKU : PRT-001
 <technology name=""/>
 </technologies>
 </device>
+<device name="TO92" package="TO92">
+<connects>
+<connect gate="G$1" pin="3V3" pad="3"/>
+<connect gate="G$1" pin="5V" pad="2"/>
+<connect gate="G$1" pin="GND" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 <deviceset name="LED_GREEN_3MM">
@@ -21936,10 +21971,10 @@ Also added pins to connect to mounting / shield pads if required (probably not g
 <technology name=""/>
 </technologies>
 </device>
-<device name="SHORT" package="C025-040X050">
+<device name="SHORT" package="C025-040X050POL">
 <connects>
-<connect gate="G$1" pin="+" pad="1"/>
-<connect gate="G$1" pin="-" pad="2"/>
+<connect gate="G$1" pin="+" pad="+"/>
+<connect gate="G$1" pin="-" pad="-"/>
 </connects>
 <technologies>
 <technology name=""/>
