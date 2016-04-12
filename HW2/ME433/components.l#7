@@ -14848,9 +14848,9 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <wire x1="3.81" y1="-1.27" x2="3.81" y2="1.27" width="0.127" layer="21"/>
 <wire x1="3.81" y1="1.27" x2="-3.81" y2="1.27" width="0.127" layer="21"/>
 <wire x1="-3.81" y1="1.27" x2="-3.81" y2="-1.27" width="0.127" layer="21"/>
-<pad name="OSC1" x="-2.54" y="0" drill="0.8"/>
+<pad name="OSC1" x="-2.5" y="0" drill="0.8"/>
 <pad name="GND" x="0" y="0" drill="0.8"/>
-<pad name="OSC2" x="2.54" y="0" drill="0.8"/>
+<pad name="OSC2" x="2.5" y="0" drill="0.8"/>
 <text x="-3.81" y="1.27" size="1.27" layer="21">&gt;NAME</text>
 <text x="-3.81" y="-2.54" size="1.27" layer="21">&gt;VALUE</text>
 </package>
@@ -14860,8 +14860,8 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <wire x1="2.794" y1="2.794" x2="-2.794" y2="2.794" width="0.127" layer="21"/>
 <wire x1="-2.794" y1="2.794" x2="-2.794" y2="-2.794" width="0.127" layer="21"/>
 <circle x="0" y="0" radius="1.79605" width="0.127" layer="21"/>
-<pad name="P$1" x="-2.794" y="0" drill="0.8"/>
-<pad name="P$2" x="2.794" y="0" drill="0.8"/>
+<pad name="P$1" x="-2.5" y="0" drill="0.8"/>
+<pad name="P$2" x="2.5" y="0" drill="0.8"/>
 <text x="-2.54" y="3.302" size="1.27" layer="21">&gt;NAME</text>
 <text x="-2.794" y="-4.318" size="1.27" layer="21">&gt;VALUE</text>
 </package>
@@ -21865,6 +21865,16 @@ Standard 15-pin 0.1" header. Use with straight break away headers (SKU : PRT-001
 <connect gate="G$1" pin="3V3" pad="E"/>
 <connect gate="G$1" pin="5V" pad="B"/>
 <connect gate="G$1" pin="GND" pad="C"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="TO92" package="TO92">
+<connects>
+<connect gate="G$1" pin="3V3" pad="3"/>
+<connect gate="G$1" pin="5V" pad="2"/>
+<connect gate="G$1" pin="GND" pad="1"/>
 </connects>
 <technologies>
 <technology name=""/>
