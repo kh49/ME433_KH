@@ -7957,7 +7957,7 @@ Source: www.kingbright.com</description>
 </class>
 </classes>
 <parts>
-<part name="U$1" library="components" deviceset="VOLTAGE_REGULATOR_MCP1702" device="TO92" value=""/>
+<part name="U$1" library="components" deviceset="VOLTAGE_REGULATOR_MCP1702" device="" value="VOLTAGE_REGULATOR_MCP1702"/>
 <part name="USER" library="components" deviceset="TLLG4400" device="" value="USER"/>
 <part name="BUTTON" library="components" deviceset="R-US_" device="0207/10" value="10k"/>
 <part name="MCLR" library="components" deviceset="R-US_" device="0207/10" value="10k"/>

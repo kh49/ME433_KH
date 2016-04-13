@@ -2760,6 +2760,9 @@
 <rectangle x1="19.456403125" y1="21.935440625" x2="21.224240625" y2="21.955759375" layer="200"/>
 <rectangle x1="19.659603125" y1="21.9557625" x2="21.021040625" y2="21.97608125" layer="200"/>
 <rectangle x1="20.005040625" y1="21.97608125" x2="20.695921875" y2="21.9964" layer="200"/>
+<text x="24.140159375" y="21.681440625" size="1.016" layer="25" font="vector">OSC</text>
+<text x="1.40208125" y="45.984159375" size="1.016" layer="25" font="vector">Designed by:
+Kai Huang</text>
 </plain>
 <libraries>
 <library name="components">
@@ -3351,9 +3354,7 @@ design rules under a new name.</description>
 <element name="C6" library="components" package="C025-040X050POL" value="10uf" x="21.59" y="41.91" smashed="yes" rot="R90">
 <attribute name="VALUE" x="19.177" y="40.386" size="1.27" layer="27" ratio="10" rot="R90"/>
 </element>
-<element name="OSC" library="components" package="CRYSTAL_8MHZ" value="8MHZ OSC" x="22.86" y="24.13" smashed="yes">
-<attribute name="VALUE" x="19.05" y="21.59" size="1.27" layer="21"/>
-</element>
+<element name="OSC" library="components" package="CRYSTAL_8MHZ" value="8MHZ OSC" x="22.86" y="24.13" smashed="yes"/>
 <element name="U$4" library="components" package="USB-MB-SHORT" value="MICROUSB_BREAKOUTSHORT" x="44.45" y="48.26" smashed="yes" rot="R270"/>
 <element name="U$5" library="components" package="DIL28-3" value="PIC32MX250F128B" x="17.78" y="31.75" smashed="yes">
 <attribute name="VALUE" x="9.271" y="31.115" size="1.27" layer="27" ratio="10"/>
@@ -3662,4 +3663,10 @@ design rules under a new name.</description>
 </signals>
 </board>
 </drawing>
+<compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
+</compatibility>
 </eagle>
