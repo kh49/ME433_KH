@@ -2760,7 +2760,6 @@
 <rectangle x1="19.456403125" y1="21.935440625" x2="21.224240625" y2="21.955759375" layer="200"/>
 <rectangle x1="19.659603125" y1="21.9557625" x2="21.021040625" y2="21.97608125" layer="200"/>
 <rectangle x1="20.005040625" y1="21.97608125" x2="20.695921875" y2="21.9964" layer="200"/>
-<text x="24.140159375" y="21.681440625" size="1.016" layer="25" font="vector">OSC</text>
 </plain>
 <libraries>
 <library name="components">
@@ -2994,19 +2993,19 @@ grid 2.5 mm, outline 4 x 5 mm</description>
 </package>
 <package name="USB-MB-SHORT">
 <description>&lt;b&gt;USB Series Mini-B Hole Mounted&lt;/b&gt;</description>
-<wire x1="-1.21" y1="3.9" x2="-1.21" y2="-3.9" width="0.127" layer="22"/>
+<wire x1="-3.75" y1="3.9" x2="-3.75" y2="-3.9" width="0.127" layer="22"/>
 <wire x1="5.25" y1="3.9" x2="5.25" y2="-3.9" width="0.127" layer="22"/>
-<wire x1="-1.21" y1="3.9" x2="5.25" y2="3.9" width="0.127" layer="22"/>
-<wire x1="-1.21" y1="-3.9" x2="5.25" y2="-3.9" width="0.127" layer="22"/>
-<wire x1="0.75" y1="3.5" x2="-0.71" y2="3" width="0.127" layer="22"/>
-<wire x1="-0.71" y1="3" x2="-0.71" y2="2" width="0.127" layer="22"/>
-<wire x1="-0.71" y1="2" x2="0.75" y2="1.5" width="0.127" layer="22"/>
-<wire x1="1.25" y1="-3.5" x2="-0.71" y2="-3" width="0.127" layer="22"/>
-<wire x1="-0.71" y1="-3" x2="-0.71" y2="-2" width="0.127" layer="22"/>
-<wire x1="-0.71" y1="-2" x2="1.25" y2="-1.5" width="0.127" layer="22"/>
-<wire x1="-0.71" y1="1.25" x2="1.75" y2="0.75" width="0.127" layer="22"/>
+<wire x1="-3.75" y1="3.9" x2="5.25" y2="3.9" width="0.127" layer="22"/>
+<wire x1="-3.75" y1="-3.9" x2="5.25" y2="-3.9" width="0.127" layer="22"/>
+<wire x1="0.75" y1="3.5" x2="-3.25" y2="3" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="3" x2="-3.25" y2="2" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="2" x2="0.75" y2="1.5" width="0.127" layer="22"/>
+<wire x1="1.25" y1="-3.5" x2="-3.25" y2="-3" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="-3" x2="-3.25" y2="-2" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="-2" x2="1.25" y2="-1.5" width="0.127" layer="22"/>
+<wire x1="-3.25" y1="1.25" x2="1.75" y2="0.75" width="0.127" layer="22"/>
 <wire x1="1.75" y1="0.75" x2="1.75" y2="-0.75" width="0.127" layer="22"/>
-<wire x1="1.75" y1="-0.75" x2="-0.71" y2="-1.25" width="0.127" layer="22"/>
+<wire x1="1.75" y1="-0.75" x2="-3.25" y2="-1.25" width="0.127" layer="22"/>
 <pad name="VBUS" x="5.1" y="1.6" drill="0.8"/>
 <pad name="D+" x="5.1" y="0" drill="0.8"/>
 <pad name="GND" x="5.1" y="-1.6" drill="0.8"/>
@@ -3352,7 +3351,9 @@ design rules under a new name.</description>
 <element name="C6" library="components" package="C025-040X050POL" value="10uf" x="21.59" y="41.91" smashed="yes" rot="R90">
 <attribute name="VALUE" x="19.177" y="40.386" size="1.27" layer="27" ratio="10" rot="R90"/>
 </element>
-<element name="OSC" library="components" package="CRYSTAL_8MHZ" value="8MHZ OSC" x="22.86" y="24.13" smashed="yes"/>
+<element name="OSC" library="components" package="CRYSTAL_8MHZ" value="8MHZ OSC" x="22.86" y="24.13" smashed="yes">
+<attribute name="VALUE" x="19.05" y="21.59" size="1.27" layer="21"/>
+</element>
 <element name="U$4" library="components" package="USB-MB-SHORT" value="MICROUSB_BREAKOUTSHORT" x="44.45" y="48.26" smashed="yes" rot="R270"/>
 <element name="U$5" library="components" package="DIL28-3" value="PIC32MX250F128B" x="17.78" y="31.75" smashed="yes">
 <attribute name="VALUE" x="9.271" y="31.115" size="1.27" layer="27" ratio="10"/>

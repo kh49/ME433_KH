@@ -22027,11 +22027,11 @@ Also added pins to connect to mounting / shield pads if required (probably not g
 </device>
 <device name="5ROW" package="1X05">
 <connects>
-<connect gate="G$1" pin="3V3" pad="4"/>
-<connect gate="G$1" pin="C" pad="1"/>
-<connect gate="G$1" pin="D" pad="2"/>
+<connect gate="G$1" pin="3V3" pad="2"/>
+<connect gate="G$1" pin="C" pad="5"/>
+<connect gate="G$1" pin="D" pad="4"/>
 <connect gate="G$1" pin="GND" pad="3"/>
-<connect gate="G$1" pin="MCLR" pad="5"/>
+<connect gate="G$1" pin="MCLR" pad="1"/>
 </connects>
 <technologies>
 <technology name=""/>
