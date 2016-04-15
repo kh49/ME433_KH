@@ -36,6 +36,23 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../433PIC32Lib.X"
+                            CT="3"
+                            CN="default"
+                            AC="true"
+                            BL="true"
+                            WD="../433PIC32Lib.X"
+                            BC="${MAKE}  -f Makefile CONF=default"
+                            DBC="${MAKE}  -f Makefile CONF=default TYPE_IMAGE=DEBUG_RUN"
+                            CC="rm -rf &quot;build/default&quot; &quot;dist/default&quot;"
+                            OP="dist/default/production/433PIC32Lib.X.a"
+                            DOP="dist/default/debug/433PIC32Lib.X.a"
+                            FL="dist/default/production/433PIC32Lib.X.a"
+                            PD="dist/default/production/433PIC32Lib.X."
+                            DD="dist/default/debug/433PIC32Lib.X.">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>

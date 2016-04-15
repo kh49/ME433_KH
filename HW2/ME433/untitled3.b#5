@@ -2763,7 +2763,6 @@
 <text x="24.140159375" y="21.681440625" size="1.016" layer="25" font="vector">OSC</text>
 <text x="1.40208125" y="45.984159375" size="1.016" layer="25" font="vector">Designed by:
 Kai Huang</text>
-<text x="1.44271875" y="43.0784" size="1.016" layer="25" font="vector">2016</text>
 </plain>
 <libraries>
 <library name="components">

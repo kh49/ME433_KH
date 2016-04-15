@@ -37,11 +37,11 @@
 
 
 #define SYS_FREQ (48000000)
-#define CS LATBbits.LATB3       // chip select pin
+#define CS LATBbits.LATB15       // chip select pin
 
 
 
- void delay(void);
+ void delay(int time);
 void main() {
    __builtin_disable_interrupts();
 
@@ -59,31 +59,41 @@ void main() {
     
     // do your TRIS and LAT commands here
     TRISA = 0xFFCF; 
-    TRISB = 0b1001111111110111;
+    TRISB = 0b0001111111110011;
 
     __builtin_enable_interrupts();
    // SYSTEMConfigPerformance(48000000);
     RPB13Rbits.RPB13R = 0b0011;
+    SDI1Rbits.SDI1R = 0b0000;
     PORTAbits.RA4 = 0;
     CS = 0;
-    //PORTBbits.RB13 = 1;
+    char pressed = 0;
     spi1_start();
     
     while(1) {
         
        //PORTAINV = 0x0010;
         //PORTAbits.RA4 = 1;
-        delay();
-        while(!PORTBbits.RB4){
-            CS = 1;
-            spi1_set(0b1,0b10101001);
-            CS = 0;
+        delay(12000);
+        if(!PORTBbits.RB4){
+            pressed = 1;
         }
+        if (pressed){
+            CS = 1;
+            char channel = 0b0;
+            char voltage = 0b10101001;
+            spi1_set(channel,voltage);
+           // spi1_set(0b1,0b10101001);
+            delay(6000);
+            CS = 0;
+            pressed = 0;
+            delay(24000000); //1 second delay
+        
+                            }
+            }
 }
-}
-
-void delay(void) {
-    int delaytime = 12000; //in hz, core timer freq is half sysfreq
+void delay(int time) {
+    int delaytime = time; //in hz, core timer freq is half sysfreq
     int starttime;
     starttime = _CP0_GET_COUNT();
     

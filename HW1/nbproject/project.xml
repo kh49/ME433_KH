@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>HW1</name>
+            <name>PIC32MX250F128B</name>
             <creation-uuid>1b07c3f4-1f20-4ebb-be77-95a34fcc5380</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
@@ -11,7 +11,9 @@
             <header-extensions/>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <make-dep-projects/>
+            <make-dep-projects>
+                <make-dep-project>../433PIC32Lib.X</make-dep-project>
+            </make-dep-projects>
         </data>
     </configuration>
 </project>
