@@ -15,7 +15,7 @@
 #pragma config IESO = OFF
 #pragma config POSCMOD = HS
 #pragma config OSCIOFNC = OFF
-#pragma config FPBDIV = DIV_8 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
+#pragma config FPBDIV = DIV_1 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
 #pragma config FCKSM = CSDCMD
 #pragma config WDTPS = PS1048576
 #pragma config WINDIS = OFF
@@ -64,34 +64,39 @@ void main() {
     __builtin_enable_interrupts();
    // SYSTEMConfigPerformance(48000000);
     RPB13Rbits.RPB13R = 0b0011;
-    SDI1Rbits.SDI1R = 0b0000;
+    SDI1Rbits.SDI1R = 0b0000; //A1
     PORTAbits.RA4 = 0;
     CS = 1;
+    int x = 0;
     char pressed = 0;
     spi1_start();
     char counter = 0;
+    
     while(1) {
-        
-       //PORTAINV = 0x0010;
-        //PORTAbits.RA4 = 1;
-        delay(12000);
-        if(!PORTBbits.RB4){
-            pressed = 1;
-        }
-        if (pressed){
-            counter = counter +5;
+        delay (18000); //total delay of 24000 per cycle
+       PORTAINV = 0x0010;
+       //PORTAbits.RA4 = 1;
+//        delay(12000);
+//        if(!PORTBbits.RB4){
+//            pressed = 1;
+//        }
+//        if (pressed){
+//            counter = counter +5;
             CS = 0;
             char channel = 0b0;
             unsigned char voltage = counter;
-            //char voltage = 0b10101001;
+//            //char voltage = 0b10101001;
             spi1_set(channel,voltage);
-           // spi1_set(0b1,0b10101001);
+            char channel = 0b1;
+            voltage = ;
+            spi1_set(channel,voltage);
+//           // spi1_set(0b1,0b10101001);
             delay(6000);
             CS = 1;
-            pressed = 0;
-            delay(24000000); //1 second delay
+//            pressed = 0;
+//            delay(24000000); //1 second delay
         
-                            }
+//                            }
             }
 }
 void delay(int time) {
