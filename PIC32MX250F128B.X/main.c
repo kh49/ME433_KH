@@ -1,6 +1,8 @@
 #include <xc.h>
 #include <plib.h>
 #include <sys/attribs.h>
+#include <math.h>
+#include <mathf.h>
 
 // DEVCFG0
 #pragma config DEBUG = OFF
@@ -15,7 +17,7 @@
 #pragma config IESO = OFF
 #pragma config POSCMOD = HS
 #pragma config OSCIOFNC = OFF
-#pragma config FPBDIV = DIV_1 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
+#pragma config FPBDIV = DIV_8 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
 #pragma config FCKSM = CSDCMD
 #pragma config WDTPS = PS1048576
 #pragma config WINDIS = OFF
@@ -38,6 +40,7 @@
 
 #define SYS_FREQ (48000000)
 #define CS LATBbits.LATB15       // chip select pin
+#define pi 3.14159265358979323846
 
 
 
@@ -67,13 +70,22 @@ void main() {
     SDI1Rbits.SDI1R = 0b0000; //A1
     PORTAbits.RA4 = 0;
     CS = 1;
-    int x = 0;
+    unsigned char x = 0; //sine counter
+    unsigned char y = 0; //triangle counter
     char pressed = 0;
     spi1_start();
     char counter = 0;
+    char m = 100; //(triangle wave frequency is 1000/2m)
+    unsigned char voltage = 0;
+    unsigned char channel = 0;
     
     while(1) {
-        delay (18000); //total delay of 24000 per cycle
+        x++;
+        x = x%100;
+        y++;
+        y = y%200;
+
+       delay (6000); //total delay of 24000 per cycle (1000/s)
        PORTAINV = 0x0010;
        //PORTAbits.RA4 = 1;
 //        delay(12000);
@@ -82,17 +94,28 @@ void main() {
 //        }
 //        if (pressed){
 //            counter = counter +5;
-            CS = 0;
-            char channel = 0b0;
-            unsigned char voltage = counter;
+       
+       
+//            CS = 0;
+//            channel = 0b0;
+//            voltage = floor(100*sin((x*2*pi)/100)+100);
+//           
 //            //char voltage = 0b10101001;
+//            spi1_set(channel,voltage);
+//            delay(6000);
+//            CS = 1;
+//            delay(6000);
+            
+            CS = 0;
+          
+            channel = 0b1;
+            voltage = 2*(m - abs((y)- m));
             spi1_set(channel,voltage);
-            char channel = 0b1;
-            voltage = ;
-            spi1_set(channel,voltage);
-//           // spi1_set(0b1,0b10101001);
+            //spi1_set(0b1,0b10101001);
             delay(6000);
+            
             CS = 1;
+            
 //            pressed = 0;
 //            delay(24000000); //1 second delay
         
