@@ -66,10 +66,10 @@ void main() {
     RPB13Rbits.RPB13R = 0b0011;
     SDI1Rbits.SDI1R = 0b0000;
     PORTAbits.RA4 = 0;
-    CS = 0;
+    CS = 1;
     char pressed = 0;
     spi1_start();
-    
+    char counter = 0;
     while(1) {
         
        //PORTAINV = 0x0010;
@@ -79,13 +79,15 @@ void main() {
             pressed = 1;
         }
         if (pressed){
-            CS = 1;
+            counter = counter +5;
+            CS = 0;
             char channel = 0b0;
-            char voltage = 0b10101001;
+            unsigned char voltage = counter;
+            //char voltage = 0b10101001;
             spi1_set(channel,voltage);
            // spi1_set(0b1,0b10101001);
             delay(6000);
-            CS = 0;
+            CS = 1;
             pressed = 0;
             delay(24000000); //1 second delay
         

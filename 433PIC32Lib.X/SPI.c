@@ -1,12 +1,12 @@
 #include "xc.h"
 #include "sys/attribs.h"
 
-void spi1_set(char channel,char voltage){
+void spi1_set(unsigned char channel,unsigned char voltage){
 //result = (result << 24) | num3; concat code
-    channel = (int) channel | 0b011;
-    voltage = (int) (voltage << 4);
-    char pad = 0b0000;
-    unsigned int data = (channel<<12)|voltage;
+    channel = (channel<<3) | 0b011;
+    channel = (unsigned int) channel;
+    voltage = (unsigned int) voltage;
+    unsigned int data = (channel<<12)|(voltage<<3);
     spi1_write(data);
     //spi1_write(0b0011101010010000);
 
