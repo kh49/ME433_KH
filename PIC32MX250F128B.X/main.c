@@ -85,7 +85,7 @@ void main() {
         y++;
         y = y%200;
 
-       delay (6000); //total delay of 24000 per cycle (1000/s)
+       //delay (6000); //total delay of 24000 per cycle (1000/s)
        PORTAINV = 0x0010;
        //PORTAbits.RA4 = 1;
 //        delay(12000);
@@ -96,29 +96,31 @@ void main() {
 //            counter = counter +5;
        
        
-//            CS = 0;
-//            channel = 0b0;
-//            voltage = floor(100*sin((x*2*pi)/100)+100);
-//           
-//            //char voltage = 0b10101001;
-//            spi1_set(channel,voltage);
-//            delay(6000);
-//            CS = 1;
-//            delay(6000);
+            CS = 0;
+            channel = 0b1;
+            voltage = floor(100*sin((x*2*pi)/100)+100);
+           
+            //char voltage = 0b10101001;
+            spi1_set(channel,voltage);
+            delay(6000);
+            CS = 1;
+            delay(6000);
             
             CS = 0;
           
-            channel = 0b1;
-            voltage = 2*(m - abs((y)- m));
+            channel = 0b0;
+            //voltage = 2*(m - abs((y)- m)); this is an upright triangle
+            voltage = y;
             spi1_set(channel,voltage);
             //spi1_set(0b1,0b10101001);
             delay(6000);
             
             CS = 1;
+            delay(6000);
             
 //            pressed = 0;
 //            delay(24000000); //1 second delay
-        
+//        
 //                            }
             }
 }
