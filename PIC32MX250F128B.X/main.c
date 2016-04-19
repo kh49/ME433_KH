@@ -2,7 +2,7 @@
 #include <plib.h>
 #include <sys/attribs.h>
 #include <math.h>
-#include <mathf.h>
+
 
 // DEVCFG0
 #pragma config DEBUG = OFF
@@ -17,7 +17,7 @@
 #pragma config IESO = OFF
 #pragma config POSCMOD = HS
 #pragma config OSCIOFNC = OFF
-#pragma config FPBDIV = DIV_8 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
+#pragma config FPBDIV = DIV_1 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
 #pragma config FCKSM = CSDCMD
 #pragma config WDTPS = PS1048576
 #pragma config WINDIS = OFF
@@ -41,8 +41,19 @@
 #define SYS_FREQ (48000000)
 #define CS LATBbits.LATB15       // chip select pin
 #define pi 3.14159265358979323846
-
-
+#define IODIR 0x00
+#define IPOL 0x01
+#define GPINTEN 0x02
+#define DEFVAL 0x03
+#define INTCON 0x04
+#define IOCON 0x05
+#define GPPU 0x06
+#define INTF 0x07
+#define INTCAP  0x08
+#define GPIO    0x09
+#define OLAT 0x0A
+#define MCP23008 0b01000000
+char counter = 1;
 
  void delay(int time);
 void main() {
@@ -66,7 +77,9 @@ void main() {
 
     __builtin_enable_interrupts();
    // SYSTEMConfigPerformance(48000000);
-    RPB13Rbits.RPB13R = 0b0011;
+    ANSELBbits.ANSB2 = 0; //SDA2 set to digital
+    ANSELBbits.ANSB3 = 0; //SCL2 set to digital
+    RPB13Rbits.RPB13R = 0b0011; //SDO
     SDI1Rbits.SDI1R = 0b0000; //A1
     PORTAbits.RA4 = 0;
     CS = 1;
@@ -89,15 +102,15 @@ void main() {
        PORTAINV = 0x0010;
        //PORTAbits.RA4 = 1;
 //        delay(12000);
-//        if(!PORTBbits.RB4){
-//            pressed = 1;
-//        }
+        if(!PORTBbits.RB4){
+            counter = !counter;
+        }
 //        if (pressed){
 //            counter = counter +5;
        
        
             CS = 0;
-            channel = 0b1;
+            channel = counter;
             voltage = floor(100*sin((x*2*pi)/100)+100);
            
             //char voltage = 0b10101001;
@@ -108,7 +121,7 @@ void main() {
             
             CS = 0;
           
-            channel = 0b0;
+            channel = !counter;
             //voltage = 2*(m - abs((y)- m)); this is an upright triangle
             voltage = y;
             spi1_set(channel,voltage);
