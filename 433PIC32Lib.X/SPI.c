@@ -17,7 +17,7 @@ void spi1_start(void){
     //all defaults are 0
     SPI1CON = 0;
     SPI1BUF;
-    SPI1BRG = 0x1; //baud rate to 10khz based on 6Mhz Pbclock at 299 for debug
+    SPI1BRG = 0x299; //baud rate to 10khz based on 6Mhz Pbclock at 299 for debug
     SPI1STATbits.SPIROV = 0;
     SPI1CONbits.CKE = 1;
     SPI1CONbits.MODE32 = 0;
