@@ -6,7 +6,7 @@
 // I2C pins need pull-up resistors, 2k-10k
 
 void i2c_master_setup(void) {
-  I2C2BRG = 233;            // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2  Fsck = baud rate (100khz) PGD = 104ns Pblck = 48mhz
+  I2C2BRG = 235;            // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2  Fsck = baud rate (100khz) PGD = 104ns Pblck = 48mhz
                                     // look up PGD for your PIC32
   I2C2CONbits.ON = 1;               // turn on the I2C2 module
 }

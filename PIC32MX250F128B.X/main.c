@@ -52,14 +52,12 @@
 #define INTCAP  0x08
 #define GPIO    0x09
 #define OLAT 0x0A
-#define MCP23008 0b0100000
+#define MCP23008 0b00100111
 char counter = 1;
 
  void delay(int time);
 void main() {
-   ANSELBbits.ANSB2 = 0; //SDA2 set to digital
-    ANSELBbits.ANSB3 = 0; //SCL2 set to digital
-    
+   
     __builtin_disable_interrupts();
 
     // set the CP0 CONFIG register to indicate that kseg0 is cacheable (0x3)
@@ -77,26 +75,17 @@ void main() {
     // do your TRIS and LAT commands here
     TRISA = 0xFFCF; 
     TRISB = 0b0001111111110011;
-    i2c_master_setup();
+   i2c_master_setup();
+    ANSELBbits.ANSB2 = 0; //SDA2 set to digital
+    ANSELBbits.ANSB3 = 0; //SCL2 set to digital
+ 
     __builtin_enable_interrupts();
    // SYSTEMConfigPerformance(48000000);
     
     RPB13Rbits.RPB13R = 0b0011; //SDO
     SDI1Rbits.SDI1R = 0b0000; //A1
     PORTAbits.RA4 = 0;
- 
-    i2c_master_start();
-    i2c_master_send(MCP23008<<1);
-    i2c_master_send(GPPU);
-    i2c_master_send(0b0);
-    i2c_master_restart();
-    i2c_master_send(MCP23008<<1|1);
-    unsigned char i2cdat = i2c_master_recv();
-    i2c_master_ack(1);
-    i2c_master_stop();
-    
-    CS = 1;
-    unsigned char x = 0; //sine counter
+   unsigned char x = 0; //sine counter
     unsigned char y = 0; //triangle counter
     char pressed = 0; //for tracking button logic
     spi1_start();
@@ -104,26 +93,52 @@ void main() {
     char m = 100; //(triangle wave frequency is 1000/2m)
     unsigned char voltage = 0;
     unsigned char channel = 0;
-    unsigned char i2cread = 0;
+    unsigned char i2cdata = 0;
+    
+    i2c_master_start();
+    i2c_master_send(MCP23008<<1);
+    i2c_master_send(IOCON);
+    i2c_master_send(0b00100000);
+    i2c_master_restart();
+    i2c_master_send(MCP23008<<1);
+    i2c_master_send(IODIR);
+    i2c_master_send(0b10000000);
+    i2c_master_restart();
+    i2c_master_send(MCP23008<<1);
+    i2c_master_send(GPIO);
+    i2c_master_restart();
+    i2c_master_send(MCP23008<<1|1);
+    i2cdata = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
+    
+    CS = 1;
+  
     
     while(1) {
-//        i2c_master_start();
-//        i2c_master_send(MCP23008<<1);
-//        i2c_master_send(GPIO);
-//        i2c_master_restart();
-//        i2c_master_send(MCP23008<<1|1);
-//        i2cdat = i2c_master_recv();
-//        i2c_master_ack(1); //ack no more read bytes
-////        if (i2cread==0b10000000){
-////            //i2c_master_restart(void);
-////            i2c_master_send(0b00000001);
-////        }
-////        else {
-////           // i2c_master_restart
-////            i2c_master_send(0b00000000);
-////        }
-//                
-//        i2c_master_stop();
+        
+    
+        i2c_master_start();
+        i2c_master_send(MCP23008<<1);
+        i2c_master_send(GPIO);
+        i2c_master_restart();
+        i2c_master_send(MCP23008<<1|1);
+        i2cdata = i2c_master_recv();
+        i2c_master_ack(1); //ack no more read bytes
+        if (i2cdata==0b10000000){
+            i2c_master_restart();
+            i2c_master_send(MCP23008<<1);
+            i2c_master_send(OLAT);
+            i2c_master_send(0b00000001);
+        }
+        else {
+            i2c_master_restart();
+            i2c_master_send(MCP23008<<1);
+            i2c_master_send(OLAT);
+            i2c_master_send(0b00000000);
+        }
+                
+        i2c_master_stop();
 ////        
         
         
@@ -146,8 +161,8 @@ void main() {
        
             CS = 0;
             channel = counter;
-            voltage = floor(100*sin((x*2*pi)/100)+100);
-            voltage = i2cdat;
+            //voltage = floor(100*sin((x*2*pi)/100)+100);
+            voltage = i2cdata;
             //char voltage = 0b10101001;
             spi1_set(channel,voltage);
             delay(6000);
