@@ -5,6 +5,7 @@
 // Change I2C1 to the I2C channel you are using
 // I2C pins need pull-up resistors, 2k-10k
 
+
 void i2c_master_setup(void) {
   I2C2BRG = 235;            // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2  Fsck = baud rate (100khz) PGD = 104ns Pblck = 48mhz
                                     // look up PGD for your PIC32
@@ -46,4 +47,40 @@ void i2c_master_ack(int val) {        // sends ACK = 0 (slave should send anothe
 void i2c_master_stop(void) {          // send a STOP:
   I2C2CONbits.PEN = 1;                // comm is complete and master relinquishes bus
   while(I2C2CONbits.PEN) { ; }        // wait for STOP to complete
+}
+
+i2c_master_write(unsigned char OPR,unsigned char ADDR,unsigned char data,unsigned char multidata) {
+    i2c_master_start();
+    i2c_master_send(OPR<<1);
+    i2c_master_send(ADDR);
+    i2c_master_send(data);
+    if (multidata ==1) {
+        
+    }
+    else {
+        i2c_master_stop();
+    }
+}
+
+i2c_master_read(unsigned char OPR,unsigned char ADDR,unsigned char addressed){
+    unsigned char data = 0;
+    if (addressed ==1){
+        i2c_master_restart();
+        i2c_master_send(OPR<<1|1);
+        data = i2c_master_recv();
+        i2c_master_ack(1);
+        i2c_master_stop();
+       
+    }
+    else {
+        i2c_master_start();
+        i2c_master_send(OPR<<1);
+        i2c_master_send(ADDR);
+        i2c_master_restart();
+        i2c_master_send(OPR<<1|1);
+        data = i2c_master_recv();
+        i2c_master_ack(1);
+        i2c_master_stop();
+    }
+    return data;
 }
