@@ -62,17 +62,19 @@ i2c_master_write(unsigned char OPR,unsigned char ADDR,unsigned char data,unsigne
     }
 }
 
-i2c_master_read(unsigned char OPR,unsigned char ADDR,unsigned char addressed){
+i2c_master_read(unsigned char OPR,unsigned char ADDR,unsigned char addressed,int multiple){ //addressed means a write already addressed
     unsigned char data = 0;
-    if (addressed ==1){
+    
+    if (multiple==0){
+        if (addressed ==1){
         i2c_master_restart();
         i2c_master_send(OPR<<1|1);
         data = i2c_master_recv();
         i2c_master_ack(1);
         i2c_master_stop();
        
-    }
-    else {
+        }
+        else {
         i2c_master_start();
         i2c_master_send(OPR<<1);
         i2c_master_send(ADDR);
@@ -81,6 +83,36 @@ i2c_master_read(unsigned char OPR,unsigned char ADDR,unsigned char addressed){
         data = i2c_master_recv();
         i2c_master_ack(1);
         i2c_master_stop();
+        }
+        return data;
     }
-    return data;
-}
+    else {
+         
+        if (addressed ==1){
+        i2c_master_restart();
+        i2c_master_send(OPR<<1|1);
+           }
+        else {
+        i2c_master_start();
+        i2c_master_send(OPR<<1);
+        i2c_master_send(ADDR);
+        i2c_master_restart();
+        i2c_master_send(OPR<<1|1);
+        }
+        
+        int ii=1;
+        unsigned char data[multiple];
+        while (ii<multiple){
+        
+        data[ii-1] = i2c_master_recv();
+        i2c_master_ack(0);
+        ii++;
+        }
+        
+        data[multiple-1] = i2c_master_recv();
+        i2c_master_ack(1);
+        i2c_master_stop();
+        
+        return data;
+        }
+    }

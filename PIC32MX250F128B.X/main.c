@@ -79,7 +79,7 @@ void main() {
     
     // do your TRIS and LAT commands here
     TRISA = 0xFFCF; 
-    TRISB = 0b0001111111110011;
+    TRISB = 0b0001111001110011;
    i2c_master_setup();
     ANSELBbits.ANSB2 = 0; //SDA2 set to digital
     ANSELBbits.ANSB3 = 0; //SCL2 set to digital
@@ -89,8 +89,25 @@ void main() {
     
     RPB13Rbits.RPB13R = 0b0011; //SDO
     SDI1Rbits.SDI1R = 0b0000; //A1
-    PORTAbits.RA4 = 0;
-   unsigned char x = 0; //sine counter
+    RPB7Rbits.RPB7R = 0b0101; //OC1
+    RPB8Rbits.RPB8R = 0b0101; //OC2
+    PORTAbits.RA4 = 0; //led init
+    T2CONbits.TCKPS = 2; //timer 2 prescale = 1:4
+    PR2 = 1999; //period = (PR2+1) * N * 12.5 ns = 100 us, 10 kHz
+    TMR2 = 0;
+    OC1RS = 1000;
+    OC1R = 1000;
+    OC2RS = 1000;
+    OC2R = 1000;
+    OC1CONbits.OCTSEL = 0; //select timer2
+    OC2CONbits.OCTSEL = 0;
+    OC1CONbits.OCM = 0b110; //set pwm mode
+    OC2CONbits.OCM = 0b110;
+    T2CONbits.ON = 1;
+    OC1CONbits.ON = 1;
+    OC2CONbits.ON = 1;
+    
+    unsigned char x = 0; //sine counter
     unsigned char y = 0; //triangle counter
     char pressed = 0; //for tracking button logic
     spi1_start(); 
@@ -100,6 +117,12 @@ void main() {
     unsigned char channel = 0;
     unsigned char i2cdata = 0;
     i2cdata = i2c_master_read(GYRO,WHOAMI,0);
+    i2c_master_write(GYRO,CTRL1_XL,0b10000000,1);
+    i2c_master_send(0b10000000);
+    i2c_master_send(0b00000100);
+    i2c_master_stop();
+  
+    
    
     CS = 1;
   
