@@ -102,7 +102,7 @@ void main() {
     i2c_master_restart();
     i2c_master_send(MCP23008<<1);
     i2c_master_send(IODIR);
-    i2c_master_send(0b10000000);
+    i2c_master_send(0b11111111);
     i2c_master_restart();
     i2c_master_send(MCP23008<<1);
     i2c_master_send(GPIO);
@@ -125,7 +125,8 @@ void main() {
         i2c_master_send(MCP23008<<1|1);
         i2cdata = i2c_master_recv();
         i2c_master_ack(1); //ack no more read bytes
-        if (i2cdata==0b10000000){
+        //i2cdata = (i2cdata>>7);
+        if (i2cdata){
             i2c_master_restart();
             i2c_master_send(MCP23008<<1);
             i2c_master_send(OLAT);
@@ -135,11 +136,11 @@ void main() {
             i2c_master_restart();
             i2c_master_send(MCP23008<<1);
             i2c_master_send(OLAT);
-            i2c_master_send(0b00000000);
+            i2c_master_send(0b0000000);
         }
                 
         i2c_master_stop();
-////        
+        
         
         
         
@@ -165,10 +166,28 @@ void main() {
             voltage = i2cdata;
             //char voltage = 0b10101001;
             spi1_set(channel,voltage);
-            delay(6000);
+            //delay(6000);
             CS = 1;
-            delay(6000);
+           // delay(6000);
             
+            i2c_master_start();
+            i2c_master_send(MCP23008<<1);
+            i2c_master_send(OLAT);
+            i2c_master_restart();
+            i2c_master_send(MCP23008<<1|1);
+            i2cdata = i2c_master_recv();
+            i2c_master_ack(1);
+            i2c_master_stop();
+            
+             CS = 0;
+            channel = counter;
+            //voltage = floor(100*sin((x*2*pi)/100)+100);
+            voltage = i2cdata;
+            //char voltage = 0b10101001;
+            spi1_set(channel,voltage);
+            //delay(6000);
+            CS = 1;
+            //delay(6000);
 //            CS = 0;
 //          
 //            channel = !counter;
