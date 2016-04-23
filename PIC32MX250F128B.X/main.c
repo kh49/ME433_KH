@@ -53,6 +53,11 @@
 #define GPIO    0x09
 #define OLAT 0x0A
 #define MCP23008 0b00100111
+#define GYRO 0b1101011
+#define CTRL1_XL 0x10
+#define CTRL2_G 0x11
+#define CTRL3_C 0x12
+#define WHOAMI 0x0F
 char counter = 1;
 
  void delay(int time);
@@ -88,32 +93,20 @@ void main() {
    unsigned char x = 0; //sine counter
     unsigned char y = 0; //triangle counter
     char pressed = 0; //for tracking button logic
-    spi1_start();
+    spi1_start(); 
     char counter = 0;
     char m = 100; //(triangle wave frequency is 1000/2m)
     unsigned char voltage = 0;
     unsigned char channel = 0;
     unsigned char i2cdata = 0;
-    
-    i2c_master_write(MCP23008,IOCON,0b00100000,0);
-    i2c_master_write(MCP23008,IODIR,0b11111110,1);
-    i2cdata = i2c_master_read(MCP23008,IODIR,1);
-    
+    i2cdata = i2c_master_read(GYRO,WHOAMI,0);
+   
     CS = 1;
   
     
     while(1) {
         
-        i2cdata = i2c_master_read(MCP23008,GPIO,0);
-        i2cdata = (i2cdata>>7);
-        if (i2cdata){
-            i2c_master_write(MCP23008,GPIO,0b00000001,0);
-        }
-        else {
-            i2c_master_write(MCP23008,GPIO,0b00000000,0);
-        }
-                
-        i2c_master_stop();
+ 
         
         
         
