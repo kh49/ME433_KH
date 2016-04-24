@@ -58,6 +58,7 @@
 #define CTRL2_G 0x11
 #define CTRL3_C 0x12
 #define WHOAMI 0x0F
+#define OUT_TEMP_L 0x20
 char counter = 1;
 
  void delay(int time);
@@ -91,14 +92,14 @@ void main() {
     SDI1Rbits.SDI1R = 0b0000; //A1
     RPB7Rbits.RPB7R = 0b0101; //OC1
     RPB8Rbits.RPB8R = 0b0101; //OC2
-    PORTAbits.RA4 = 0; //led init
+    PORTAbits.RA4 = 1; //led init
     T2CONbits.TCKPS = 2; //timer 2 prescale = 1:4
-    PR2 = 1999; //period = (PR2+1) * N * 12.5 ns = 100 us, 10 kHz
+    PR2 = 19999; //period = (PR2+1) * N * 12.5 ns = 100 us, 10 kHz
     TMR2 = 0;
-    OC1RS = 1000;
-    OC1R = 1000;
-    OC2RS = 1000;
-    OC2R = 1000;
+    OC1RS = 10000;
+    OC1R = 10000;
+    OC2RS = 10000;
+    OC2R = 10000;
     OC1CONbits.OCTSEL = 0; //select timer2
     OC2CONbits.OCTSEL = 0;
     OC1CONbits.OCM = 0b110; //set pwm mode
@@ -115,12 +116,24 @@ void main() {
     char m = 100; //(triangle wave frequency is 1000/2m)
     unsigned char voltage = 0;
     unsigned char channel = 0;
-    unsigned char i2cdata = 0;
-    i2cdata = i2c_master_read(GYRO,WHOAMI,0);
-    i2c_master_write(GYRO,CTRL1_XL,0b10000000,1);
-    i2c_master_send(0b10000000);
-    i2c_master_send(0b00000100);
-    i2c_master_stop();
+    int bytes = 14;
+    unsigned char i2cdata[bytes];
+    short temp = 0;
+    short accel_x = 0;
+    short accel_y = 0;
+    short accel_z = 0;
+    short gyro_x = 0;
+    short gyro_y = 0;
+    short gyro_z = 0;
+    
+    //i2cdata = i2c_master_read(GYRO,WHOAMI,0);
+    i2c_master_write(GYRO,CTRL1_XL,0b10000011,0);
+    i2c_master_write(GYRO,CTRL2_G,0b10000000,0);
+    i2c_master_write(GYRO,CTRL3_C,0b00000100);
+//    i2c_master_write(GYRO,CTRL1_XL,0b10000000,1);
+//    i2c_master_send(0b10000000);
+//    i2c_master_send(0b00000100);
+//    i2c_master_stop();
   
     
    
@@ -129,54 +142,48 @@ void main() {
     
     while(1) {
         
- 
-        
-        
-        
-        
-        x++;
-        x = x%100;
-        y++;
-        y = y%200;
-
-       //delay (6000); //total delay of 24000 per cycle (1000/s)
-       PORTAINV = 0x0010;
-       //PORTAbits.RA4 = 1;
-//        delay(12000);
-        if(!PORTBbits.RB4){
-            counter = !counter;
-        }
-//        if (pressed){
-//            counter = counter +5;
+       i2cdata[bytes] = i2c_master_read(GYRO,OUT_TEMP_L,0,bytes);
        
+       temp = i2cdata[1];
+       temp = (temp<<8)|i2cdata[0];
+        
+       gyro_x = i2cdata[3];
+       gyro_x = (gyro_x<<8)|i2cdata[2];
        
-            CS = 0;
-            channel = counter;
-            //voltage = floor(100*sin((x*2*pi)/100)+100);
-            voltage = i2cdata;
-            //char voltage = 0b10101001;
-            spi1_set(channel,voltage);
-            //delay(6000);
-            CS = 1;
-           // delay(6000);
-            
-
+       gyro_y = i2cdata[5];
+       gyro_y = (gyro_y<<8)|i2cdata[4];
+       
+       gyro_z = i2cdata[7];
+       gyro_z = (gyro_z<<8)|i2cdata[6];
+       
+       accel_x = i2cdata[9];
+       accel_x = (accel_x<<8)|i2cdata[8];
+       
+       accel_y = i2cdata[11];
+       accel_y = (accel_y<<8)|i2cdata[10];
+       
+       accel_z = i2cdata[13];
+       accel_z = (accel_z<<8)|i2cdata[12];
+       
+        
+       OC1RS = floor((temp/3.2768 + 10000));
+       OC2RS = floor((gyro_y/3.2768 + 10000));
+//       OC1R = floor((gyro_x/3.2768 + 10000));
+//       OC2R = floor((gyro_y/3.2768 + 10000));
+//       
+       delay(24000);
+       
 //            CS = 0;
-//          
-//            channel = !counter;
-//            //voltage = 2*(m - abs((y)- m)); this is an upright triangle
-//            voltage = y;
+//            channel = counter;
+//            //voltage = floor(100*sin((x*2*pi)/100)+100);
+//            voltage = i2cdata;
+//            //char voltage = 0b10101001;
 //            spi1_set(channel,voltage);
-//            //spi1_set(0b1,0b10101001);
-//            delay(6000);
-//            
+//            //delay(6000);
 //            CS = 1;
-//            delay(6000);
-            
-//            
-//                            }
+                 }
             }
-}
+
 void delay(int time) {
     int delaytime = time; //in hz, core timer freq is half sysfreq
     int starttime;
