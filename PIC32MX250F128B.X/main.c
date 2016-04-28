@@ -17,7 +17,7 @@
 #pragma config IESO = OFF
 #pragma config POSCMOD = HS
 #pragma config OSCIOFNC = OFF
-#pragma config FPBDIV = DIV_8 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
+#pragma config FPBDIV = DIV_1 //temporarilly set at 8 so PBUS is at 6Mhz for debugging
 #pragma config FCKSM = CSDCMD
 #pragma config WDTPS = PS1048576
 #pragma config WINDIS = OFF
@@ -94,12 +94,12 @@ void main() {
     RPB8Rbits.RPB8R = 0b0101; //OC2
     PORTAbits.RA4 = 1; //led init
     T2CONbits.TCKPS = 2; //timer 2 prescale = 1:4
-    PR2 = 19999; //period = (PR2+1) * N * 12.5 ns = 100 us, 10 kHz
+    PR2 = 1999; //period = (PR2+1) * N * 12.5 ns = 100 us, 10 kHz
     TMR2 = 0;
-    OC1RS = 10000;
-    OC1R = 10000;
-    OC2RS = 10000;
-    OC2R = 10000;
+    OC1RS = 1000;
+    OC1R = 1000;
+    OC2RS = 1000;
+    OC2R = 1000;
     OC1CONbits.OCTSEL = 0; //select timer2
     OC2CONbits.OCTSEL = 0;
     OC1CONbits.OCM = 0b110; //set pwm mode
@@ -118,6 +118,8 @@ void main() {
     unsigned char channel = 0;
     int bytes = 14;
     unsigned char i2cdata[bytes];
+    unsigned char i2cdatatest;
+    unsigned char i2cwhoami;
     short temp = 0;
     short accel_x = 0;
     short accel_y = 0;
@@ -125,11 +127,13 @@ void main() {
     short gyro_x = 0;
     short gyro_y = 0;
     short gyro_z = 0;
+    char i2cdatacount = 0;
     
-    //i2cdata = i2c_master_read(GYRO,WHOAMI,0);
-    i2c_master_write(GYRO,CTRL1_XL,0b10000011,0);
+    i2cwhoami = i2c_master_read(GYRO,WHOAMI,0,0);
+    i2c_master_write(GYRO,CTRL1_XL,0b10000000,0);
     i2c_master_write(GYRO,CTRL2_G,0b10000000,0);
     i2c_master_write(GYRO,CTRL3_C,0b00000100);
+    //i2cdatatest = i2c_master_read(GYRO,CTRL1_XL,0,0);
 //    i2c_master_write(GYRO,CTRL1_XL,0b10000000,1);
 //    i2c_master_send(0b10000000);
 //    i2c_master_send(0b00000100);
@@ -141,46 +145,85 @@ void main() {
   
     
     while(1) {
-        
-       i2cdata[bytes] = i2c_master_read(GYRO,OUT_TEMP_L,0,bytes);
-       
+       i2c_master_multiread(GYRO,OUT_TEMP_L,bytes,i2cdata);
+//       //i2cdatatest = i2c_master_read(GYRO,0x28,0,0);
        temp = i2cdata[1];
        temp = (temp<<8)|i2cdata[0];
+       temp = (unsigned short)temp;
         
        gyro_x = i2cdata[3];
        gyro_x = (gyro_x<<8)|i2cdata[2];
+       gyro_x = (unsigned short)gyro_x;
        
        gyro_y = i2cdata[5];
        gyro_y = (gyro_y<<8)|i2cdata[4];
+       gyro_y = (unsigned short)gyro_y;
        
        gyro_z = i2cdata[7];
        gyro_z = (gyro_z<<8)|i2cdata[6];
+       gyro_z = (unsigned short)gyro_z;
        
        accel_x = i2cdata[9];
-       accel_x = (accel_x<<8)|i2cdata[8];
+       accel_x = (i2cdata[9]<<8)|i2cdata[8];
+       accel_x = (unsigned short)accel_x;
        
-       accel_y = i2cdata[11];
-       accel_y = (accel_y<<8)|i2cdata[10];
+      accel_y = i2cdata[11];
+       accel_y = (i2cdata[11]<<8)|i2cdata[10];
+       accel_y = (unsigned short)accel_y;
        
        accel_z = i2cdata[13];
        accel_z = (accel_z<<8)|i2cdata[12];
+       accel_z = (unsigned short)accel_z;
        
         
-       OC1RS = floor((temp/3.2768 + 10000));
-       OC2RS = floor((gyro_y/3.2768 + 10000));
+       OC1RS = floor((accel_x/16.768));
+       OC2RS = floor((accel_y/16.768));
+       if(OC1RS>2999){
+           OC1RS = 2000;
+            }
+       else if(OC1RS<1000){
+           OC1RS = 0;
+       }
+       else{
+           OC1RS = OC1RS - 1000;
+       }
+       
+       
+       if(OC2RS>2999){
+           OC2RS = 2000;
+            }
+       else if(OC2RS<1000){
+           OC2RS = 0;
+       }
+       else{
+           OC2RS = OC2RS - 1000;
+       }
 //       OC1R = floor((gyro_x/3.2768 + 10000));
 //       OC2R = floor((gyro_y/3.2768 + 10000));
 //       
-       delay(24000);
+       if (!PORTBbits.RB4){
+       CS = 0;
+            channel = counter;
+            //voltage = floor(100*sin((x*2*pi)/100)+100);
+            voltage = i2cwhoami;
+            //char voltage = 0b10101001;
+            spi1_set(channel,voltage);
+            //delay(6000);
+            CS = 1;
+       }
+       else {
+            CS = 0;
+            channel = counter;
+            //voltage = floor(100*sin((x*2*pi)/100)+100);
+            voltage = i2cdata[0];
+            //char voltage = 0b10101001;
+            spi1_set(channel,voltage);
+            //delay(6000);
+            CS = 1;
+            //++i2cdatacount %14;
+       }
        
-//            CS = 0;
-//            channel = counter;
-//            //voltage = floor(100*sin((x*2*pi)/100)+100);
-//            voltage = i2cdata;
-//            //char voltage = 0b10101001;
-//            spi1_set(channel,voltage);
-//            //delay(6000);
-//            CS = 1;
+       delay(960000);
                  }
             }
 
