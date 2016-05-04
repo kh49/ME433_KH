@@ -190,7 +190,7 @@ void LCD_clearScreen(unsigned short color) {
 		}
 }
 
-void LCD_type(unsigned char x,unsigned char y,char *characters, unsigned short color) {
+void LCD_type(unsigned char x,unsigned char y,char *characters,char length, unsigned short color) {
     char ii = 0;
     
    

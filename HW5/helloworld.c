@@ -111,8 +111,8 @@ void main() {
     OC1CONbits.ON = 1;
     OC2CONbits.ON = 1;
     
-    //unsigned char x = 0; //sine counter
-    //unsigned char y = 0; //triangle counter
+    unsigned char x = 0; //sine counter
+    unsigned char y = 0; //triangle counter
     char pressed = 0; //for tracking button logic
     char counter = 0;
     char m = 100; //(triangle wave frequency is 1000/2m)
@@ -132,8 +132,6 @@ void main() {
     char i2cdatacount = 0;
     char textbuffer[20];
     char length = 0;
-    char x = 10;
-    char y = 24;
     
     i2cwhoami = i2c_master_read(GYRO,WHOAMI,0,0);
     i2c_master_write(GYRO,CTRL1_XL,0b10000000,0);
@@ -148,10 +146,16 @@ void main() {
     
    
     CS = 1;
-    
+    int leet = 1337;
+    sprintf(textbuffer,"Hello world %d!",leet);
+    char text[2] = {'H','6'};
+ 
+    //int text[5] = {40,30,50,30,20};
      LCD_clearScreen(0);
      
     while(1) {
+        length = sizeof(textbuffer);//size must be taken here otherwise pointer size is taken instead of 
+       LCD_type(28,32,textbuffer,length,0b1111100000000000);
        //LCD_char(28,32,30,0b1111100000000000);
         
     
@@ -160,51 +164,31 @@ void main() {
        temp = i2cdata[1];
        temp = (temp<<8)|i2cdata[0];
        temp = (unsigned short)temp;
-       sprintf(textbuffer,"T:%d     ",temp);
-       LCD_type(x,y,textbuffer,0b1111100000000000);
-       y = y+8;
-               
+        
        gyro_x = i2cdata[3];
        gyro_x = (gyro_x<<8)|i2cdata[2];
        gyro_x = (unsigned short)gyro_x;
-       sprintf(textbuffer,"Gx:%d     ",gyro_x);
-       LCD_type(x,y,textbuffer,0b1111100000000000);
-       y = y+8;
        
        gyro_y = i2cdata[5];
        gyro_y = (gyro_y<<8)|i2cdata[4];
        gyro_y = (unsigned short)gyro_y;
-       sprintf(textbuffer,"Gy:%d     ",gyro_y);
-       LCD_type(x,y,textbuffer,0b1111100000000000);
-       y = y+8;
        
        gyro_z = i2cdata[7];
        gyro_z = (gyro_z<<8)|i2cdata[6];
        gyro_z = (unsigned short)gyro_z;
-       sprintf(textbuffer,"Gz:%d     ",gyro_z);
-       LCD_type(x,y,textbuffer,0b1111100000000000);
-       y = y+8;
        
        accel_x = i2cdata[9];
        accel_x = (i2cdata[9]<<8)|i2cdata[8];
-       //accel_x = (unsigned short)accel_x;
-       sprintf(textbuffer,"Ax:%hu     ",accel_x);
-       LCD_type(x,y,textbuffer,0b1111100000000000);
-       y = y+8;
+       accel_x = (unsigned short)accel_x;
        
-       accel_y = i2cdata[11];
+      accel_y = i2cdata[11];
        accel_y = (i2cdata[11]<<8)|i2cdata[10];
-       //accel_y = (unsigned short)accel_y;
-       sprintf(textbuffer,"Ay:%hu     ",accel_y);
-       LCD_type(x,y,textbuffer,0b1111100000000000);
-       y = y+8;
+       accel_y = (unsigned short)accel_y;
        
        accel_z = i2cdata[13];
        accel_z = (accel_z<<8)|i2cdata[12];
-       //accel_z = (unsigned short)accel_z;
-       sprintf(textbuffer,"Az:%hu     ",accel_z);
-       LCD_type(x,y,textbuffer,0b1111100000000000);
-       y = 24;
+       accel_z = (unsigned short)accel_z;
+       
         
        OC1RS = floor((accel_x/16.768));
        OC2RS = floor((accel_y/16.768));
