@@ -88,8 +88,11 @@ void main() {
     __builtin_enable_interrupts();
    // SYSTEMConfigPerformance(48000000);
     
-    RPB13Rbits.RPB13R = 0b0011; //SDO
-    SDI1Rbits.SDI1R = 0b0000; //A1
+    SPI1_init(); 
+    LCD_init();
+    LCD_clearScreen(0);
+//    RPB13Rbits.RPB13R = 0b0011; //SDO
+//    SDI1Rbits.SDI1R = 0b0000; //A1
     RPB7Rbits.RPB7R = 0b0101; //OC1
     RPB8Rbits.RPB8R = 0b0101; //OC2
     PORTAbits.RA4 = 1; //led init
@@ -111,7 +114,6 @@ void main() {
     unsigned char x = 0; //sine counter
     unsigned char y = 0; //triangle counter
     char pressed = 0; //for tracking button logic
-    spi1_start(); 
     char counter = 0;
     char m = 100; //(triangle wave frequency is 1000/2m)
     unsigned char voltage = 0;
@@ -128,6 +130,7 @@ void main() {
     short gyro_y = 0;
     short gyro_z = 0;
     char i2cdatacount = 0;
+    char textbuffer[20];
     
     i2cwhoami = i2c_master_read(GYRO,WHOAMI,0,0);
     i2c_master_write(GYRO,CTRL1_XL,0b10000000,0);
@@ -143,8 +146,16 @@ void main() {
    
     CS = 1;
   
-    
+    //int text =sprintf(textbuffer,"Hello world 1337!");
+    int text[3] = {30,31,32};
+     LCD_clearScreen(0);
+     
     while(1) {
+      
+       LCD_type(28,32,text,0b1111100000000000);
+       //LCD_char(28,32,30,0b1111100000000000);
+        
+    
        i2c_master_multiread(GYRO,OUT_TEMP_L,bytes,i2cdata);
 //       //i2cdatatest = i2c_master_read(GYRO,0x28,0,0);
        temp = i2cdata[1];
@@ -200,29 +211,29 @@ void main() {
        }
 //       OC1R = floor((gyro_x/3.2768 + 10000));
 //       OC2R = floor((gyro_y/3.2768 + 10000));
-//       
-       if (!PORTBbits.RB4){
-       CS = 0;
-            channel = counter;
-            //voltage = floor(100*sin((x*2*pi)/100)+100);
-            voltage = i2cwhoami;
-            //char voltage = 0b10101001;
-            spi1_set(channel,voltage);
-            //delay(6000);
-            CS = 1;
-       }
-       else {
-            CS = 0;
-            channel = counter;
-            //voltage = floor(100*sin((x*2*pi)/100)+100);
-            voltage = i2cdata[0];
-            //char voltage = 0b10101001;
-            spi1_set(channel,voltage);
-            //delay(6000);
-            CS = 1;
-            //++i2cdatacount %14;
-       }
-       
+//-------------SPI debugging for IMU------------------
+//       if (!PORTBbits.RB4){
+//       CS = 0;
+//            channel = counter;
+//            //voltage = floor(100*sin((x*2*pi)/100)+100);
+//            voltage = i2cwhoami;
+//            //char voltage = 0b10101001;
+//            spi1_set(channel,voltage);
+//            //delay(6000);
+//            CS = 1;
+//       }
+//       else {
+//            CS = 0;
+//            channel = counter;
+//            //voltage = floor(100*sin((x*2*pi)/100)+100);
+//            voltage = i2cdata[0];
+//            //char voltage = 0b10101001;
+//            spi1_set(channel,voltage);
+//            //delay(6000);
+//            CS = 1;
+//            //++i2cdatacount %14;
+//       }
+//-------------------------------------------------------
        delay(960000);
                  }
             }

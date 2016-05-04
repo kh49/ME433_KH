@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=I2C_noint.c SPI.c
+SOURCEFILES_QUOTED_IF_SPACED=I2C_noint.c SPI.c ILI9163C.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/I2C_noint.o ${OBJECTDIR}/SPI.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/I2C_noint.o.d ${OBJECTDIR}/SPI.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/I2C_noint.o ${OBJECTDIR}/SPI.o ${OBJECTDIR}/ILI9163C.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/I2C_noint.o.d ${OBJECTDIR}/SPI.o.d ${OBJECTDIR}/ILI9163C.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/I2C_noint.o ${OBJECTDIR}/SPI.o
+OBJECTFILES=${OBJECTDIR}/I2C_noint.o ${OBJECTDIR}/SPI.o ${OBJECTDIR}/ILI9163C.o
 
 # Source Files
-SOURCEFILES=I2C_noint.c SPI.c
+SOURCEFILES=I2C_noint.c SPI.c ILI9163C.c
 
 
 CFLAGS=
@@ -106,6 +106,12 @@ ${OBJECTDIR}/SPI.o: SPI.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/SPI.o 
 	@${FIXDEPS} "${OBJECTDIR}/SPI.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SPI.o.d" -o ${OBJECTDIR}/SPI.o SPI.c     
 	
+${OBJECTDIR}/ILI9163C.o: ILI9163C.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ILI9163C.o.d 
+	@${RM} ${OBJECTDIR}/ILI9163C.o 
+	@${FIXDEPS} "${OBJECTDIR}/ILI9163C.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ILI9163C.o.d" -o ${OBJECTDIR}/ILI9163C.o ILI9163C.c     
+	
 else
 ${OBJECTDIR}/I2C_noint.o: I2C_noint.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -118,6 +124,12 @@ ${OBJECTDIR}/SPI.o: SPI.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/SPI.o.d 
 	@${RM} ${OBJECTDIR}/SPI.o 
 	@${FIXDEPS} "${OBJECTDIR}/SPI.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SPI.o.d" -o ${OBJECTDIR}/SPI.o SPI.c     
+	
+${OBJECTDIR}/ILI9163C.o: ILI9163C.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ILI9163C.o.d 
+	@${RM} ${OBJECTDIR}/ILI9163C.o 
+	@${FIXDEPS} "${OBJECTDIR}/ILI9163C.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ILI9163C.o.d" -o ${OBJECTDIR}/ILI9163C.o ILI9163C.c     
 	
 endif
 
