@@ -170,6 +170,20 @@ void LCD_drawPixel(unsigned short x, unsigned short y, unsigned short color) {
     LCD_data16(color);
 }
 
+void LCD_drawla(unsigned short x, unsigned short y, unsigned short color, unsigned short background){
+    char ii=0;
+    char jj=0;
+for (ii=0;ii<125;ii++) {
+    for (jj=0;jj<125;jj++) {
+        if (labmp[ii][jj]) {
+        LCD_drawPixel(jj,ii,color);
+        }
+        else {
+            LCD_drawPixel(jj,ii,background);
+        }
+    }
+}
+}
 void LCD_setAddr(unsigned short x0, unsigned short y0, unsigned short x1, unsigned short y1) {
     LCD_command(CMD_CLMADRS); // Column
     LCD_data16(x0);

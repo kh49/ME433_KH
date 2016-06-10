@@ -155,12 +155,13 @@ void main() {
    
     CS = 1;
     
-     LCD_clearScreen(0);
+     //LCD_clearScreen(0);
+     LCD_drawla(0,0,0b1111100000000000,0);
      
     while(1) {
        //LCD_char(28,32,30,0b1111100000000000);
         
-    
+        
        i2c_master_multiread(GYRO,OUT_TEMP_L,bytes,i2cdata);
 //       //i2cdatatest = i2c_master_read(GYRO,0x28,0,0);
        temp = i2cdata[1];
@@ -234,10 +235,15 @@ void main() {
        else{
            OC2RS = OC2RS - 1000;
        }
+        
+       
+    
 //       OC1R = floor((gyro_x/3.2768 + 10000));
 //       OC2R = floor((gyro_y/3.2768 + 10000));
 //-------------SPI debugging for IMU------------------
-//       if (!PORTBbits.RB4){
+       if (!PORTBbits.RB4){
+           pressed = !pressed;
+       }
 //       CS = 0;
 //            channel = counter;
 //            //voltage = floor(100*sin((x*2*pi)/100)+100);
